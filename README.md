@@ -97,7 +97,9 @@ Response:
 }
 ```
 
-When using Query Vairables, $id is replaced by the id value in the json object below. Basically saying this query uses are a parameter represented by $id of type ID which is required. Then calling resolver function and passing in same parameter.
+#### Query Variables
+
+When using Query Variables, $id is replaced by the id value in the json object below. Basically saying this query uses a parameter represented by $id of type ID which is required. Then calling resolver function and passing in same parameter.
 
 ```
 query ReviewQuery($id: ID!) {
@@ -120,6 +122,85 @@ Response:
     "review": {
       "rating": 9,
       "content": "lorem ipsum"
+    }
+  }
+}
+```
+
+#### Mutations
+
+Deleting
+
+```
+mutation DeleteMutation($id: ID!){
+  deleteGame(id: $id) {
+    id,
+    title
+    platform
+  }
+}
+
+{
+  "id": "2",
+}
+```
+
+Response Type:
+
+```
+  "data": {
+    "deleteGame": [
+      {
+        "id": "1",
+        "title": "Zelda, Tears of the Kingdom",
+        "platform": [
+          "Switch"
+        ]
+      },
+      {
+        "id": "3",
+        "title": "Elden Ring",
+        "platform": [
+          "PS5",
+          "Xbox",
+          "PC"
+        ]
+      },
+    ]
+  }
+```
+
+Adding
+
+```
+mutation AddMutation($game: AddGameInput!){
+  addGame(game: $game) {
+    id,
+    title
+    platform
+  }
+}
+
+{
+  "game": {
+    "title": "a new game",
+    "platform": ["switch", "ps5"]
+  }
+}
+```
+
+Response Type:
+
+```
+{
+  "data": {
+    "addGame": {
+      "id": "6",
+      "title": "a new game",
+      "platform": [
+        "switch",
+        "ps5"
+      ]
     }
   }
 }

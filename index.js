@@ -6,7 +6,7 @@ import db from "./_db.js";
 // ApolloServer is used to setup the server and conifgure it and tell Apollo how handle queries. Standalone is used to start listening for requests
 
 // resolvers are functions that return the data
-// If use asks for only the title in the games array then Apollo will handle that and only return the titles and leave out rest of data
+// If user asks for only the title in the games array then Apollo will handle that and only return the titles and leave out rest of data
 const resolvers = {
   // Resolver function for Query type
   Query: {
@@ -76,6 +76,21 @@ const resolvers = {
   //     }
   //   }
   // }
+  Mutation: {
+    deleteGame(parent, args, context) {
+      db.games = db.games.filter((game) => game.id !== args.id);
+      return db.games;
+    },
+    addGame(_, args) {
+      // args.game already has the fields we have
+      let game = {
+        ...args.game,
+        id: db.games.length + 1,
+      };
+      db.games.push(game);
+      return game;
+    },
+  },
 };
 
 // server setup

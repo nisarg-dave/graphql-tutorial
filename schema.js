@@ -28,6 +28,16 @@ export const typeDefs = `#graphql
         authors: [Author]
         author(id: ID!): Author
     }
+    type Mutation {
+        # Deleting game and then returning updated game array
+        deleteGame(id:ID!) : [Game!]!
+        # For adding we could add each parameter but better way to do it is using input types
+        addGame(game: AddGameInput!): Game
+    }
+    input AddGameInput {
+        title: String!
+        platform: [String!]!
+    }
 `;
 
 // using a syntax highlighter hence #graphql
@@ -42,3 +52,5 @@ export const typeDefs = `#graphql
 //      reviews: [Reviews] -> array of reviews returned and is the only entry point we are exposing. Users can use this to navigate to other resources if related.
 // }
 // review(id: ID!): Review -> saying here that this entry point returns a sigle review based on ID passed in by user and is required and is of type ID
+// Mutation is another special type to make mutations
+// Input isn't a type of data but instead a collection of fields
