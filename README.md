@@ -7,7 +7,7 @@
 
 ### Query Basics
 
-Example query here is called ReviewsQuery and is tapping into the reviews resource and is asking for only the ratings
+Example query here is called ReviewsQuery and is tapping into the reviews resource and is asking for only the ratings. This is how you make queries on the frontend
 
 ```
 query ReviewsQuery {
@@ -94,5 +94,33 @@ Response:
             }
         ]
     }
+}
+```
+
+When using Query Vairables, $id is replaced by the id value in the json object below. Basically saying this query uses are a parameter represented by $id of type ID which is required. Then calling resolver function and passing in same parameter.
+
+```
+query ReviewQuery($id: ID!) {
+  review(id: $id) {
+    rating,
+    content
+  }
+}
+
+{
+  "id": "1"
+}
+```
+
+Response:
+
+```
+{
+  "data": {
+    "review": {
+      "rating": 9,
+      "content": "lorem ipsum"
+    }
+  }
 }
 ```
