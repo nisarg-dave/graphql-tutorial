@@ -97,7 +97,7 @@ Response:
 }
 ```
 
-#### Query Variables
+### Query Variables
 
 When using Query Variables, $id is replaced by the id value in the json object below. Basically saying this query uses a parameter represented by $id of type ID which is required. Then calling resolver function and passing in same parameter.
 
@@ -127,9 +127,9 @@ Response:
 }
 ```
 
-#### Mutations
+### Mutations
 
-Deleting
+#### Deleting
 
 ```
 mutation DeleteMutation($id: ID!){
@@ -170,7 +170,7 @@ Response Type:
   }
 ```
 
-Adding
+#### Adding
 
 ```
 mutation AddMutation($game: AddGameInput!){
@@ -206,7 +206,7 @@ Response Type:
 }
 ```
 
-Update Mutation
+#### Update Mutation
 
 ```
 mutation EditMutation($edits: EditGameInput!, $id: ID!){
