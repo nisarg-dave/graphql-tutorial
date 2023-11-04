@@ -3,16 +3,22 @@ export const typeDefs = `#graphql
         id: ID!
         title: String!
         platform: [String!]! 
+        # this can be nullable but if it has data then it can't
+        reviews: [Review!]
     }
     type Review {
         id: ID!
         rating: Int!
         content: String!
+        # related fields
+        game: Game!
+        author: Author!
     }
     type Author {
         id: ID!
         name: String!
         verified: Boolean!
+        reviews: [Review!]
     }
     type Query {
         reviews: [Review]

@@ -30,6 +30,52 @@ const resolvers = {
       return db.authors.find((author) => author.id === args.id);
     },
   },
+  // To get back related data, can't use the Query type as it doesn't have an entry point for this. Create another key for the object other types
+  // created resolver called reviews which has an argument called parent which has the return value of the resolver game(parent, args, context) from above and that Game object has an id which can be matched to the review/reviews it is associated with
+  // Parent has access to previous resolver
+  Game: {
+    reviews(parent) {
+      return db.reviews.filter((review) => review.game_id === parent.id);
+    },
+  },
+  // Query for something like above looks like this
+  // query GamesQuery($id: ID!) {
+  //   game(id: $id) {
+  //     platform,
+  //     title,
+  //     reviews {
+  //       rating
+  //       content
+  //     }
+  //   }
+  // }
+  Author: {
+    reviews(parent) {
+      return db.reviews.filter((review) => review.author_id === parent.id);
+    },
+  },
+  Review: {
+    author(parent) {
+      return db.authors.find((author) => author.id === parent.author_id);
+    },
+    game(parent) {
+      return db.games.find((game) => game.id === parent.game_id);
+    },
+  },
+  // Query for something like above looks like this
+  // query ReviewQuery($id: ID!) {
+  //   review(id: $id) {
+  //     rating,
+  //     game {
+  //       title
+  //       platform
+  //     },
+  //     author {
+  //       name,
+  //       verified
+  //     }
+  //   }
+  // }
 };
 
 // server setup
