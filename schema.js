@@ -30,14 +30,20 @@ export const typeDefs = `#graphql
     }
     type Mutation {
         # Deleting game and then returning updated game array
-        deleteGame(id:ID!) : [Game!]!
+        deleteGame(id:ID!) : [Game]
         # For adding we could add each parameter but better way to do it is using input types
         addGame(game: AddGameInput!): Game
+        updateGame(id: ID!, edits: EditGameInput): Game
     }
     input AddGameInput {
         title: String!
         platform: [String!]!
     }
+    input EditGameInput{
+        title: String
+        platform: [String!]
+    }
+    
 `;
 
 // using a syntax highlighter hence #graphql
@@ -54,3 +60,4 @@ export const typeDefs = `#graphql
 // review(id: ID!): Review -> saying here that this entry point returns a sigle review based on ID passed in by user and is required and is of type ID
 // Mutation is another special type to make mutations
 // Input isn't a type of data but instead a collection of fields
+// Notice how only for object and input types we are using ! after the : and not for mutations

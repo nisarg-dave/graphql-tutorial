@@ -205,3 +205,36 @@ Response Type:
   }
 }
 ```
+
+Update Mutation
+
+```
+mutation EditMutation($edits: EditGameInput!, $id: ID!){
+  updateGame(edits: $edits, id: $id) {
+    title,
+    platform
+  }
+}
+
+{
+  "edits": {
+    "title": "Spiderman 2",
+  },
+  "id": "1"
+}
+```
+
+Response Type:
+
+```
+{
+  "data": {
+    "updateGame": {
+      "title": "Spiderman 2",
+      "platform": [
+        "Switch"
+      ]
+    }
+  }
+}
+```

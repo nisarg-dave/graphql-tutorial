@@ -90,6 +90,16 @@ const resolvers = {
       db.games.push(game);
       return game;
     },
+    updateGame(_, args) {
+      db.games = db.games.map((game) => {
+        if (game.id === args.id) {
+          return { ...game, ...args.edits };
+        }
+        return game;
+      });
+
+      return db.games.find((game) => game.id === args.id);
+    },
   },
 };
 
